@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-var cors = require('cors');
-process.env.PORT || 3000;
+const cors = require('cors');
+const port = process.env.PORT || 3000;
 
 app.use(cors())
 app.use(bodyParser.json());
