@@ -12,4 +12,4 @@ app.get('/', (req, res) => {
 		res.json({res: "An alligator approaches.... slowly"})
 });
 
-app.listen(port, () => console.log(`Gator app listening on port ${port}!`));
+app.listen(5000, "0.0.0.0" );
