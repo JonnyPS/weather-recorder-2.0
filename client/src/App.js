@@ -26,7 +26,7 @@ class App extends React.Component {
 			<div className="App">
 				<header className="App-header">
 					<p>
-						I am here! and so is someone else...........
+						I am here! and so is someone else........... or are they?
 					</p>
 					<p>
 						{this.state.data}

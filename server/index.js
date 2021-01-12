@@ -12,6 +12,7 @@ var db = new sqlite3.Database('abcd');
 
 app.use(cors())
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, '/build')));
 
 let createTables = () => {
 	db.serialize(function() {
@@ -238,19 +239,24 @@ app.get('/weather', (req, res) => {
 		res.json({rows: allRows})
     // res.json({res: 'get the weather'});
 	});
-
 });
 
-app.get('/', (req, res) => {
-		res.json({res: "An alligator approaches.... slowly"})
-});
+// app.get('/', (req, res) => {
+// 		// res.json({res: "An alligator approaches.... slowly"})
+// 		res.send('An alligator approaches.... slowly')
+// });
 
-app.get('/my-route', (req, res) => {
-	res.sendFile(path.join(__dirname + '/index.html'));
+app.get('/backend-view', (req, res) => {
+	res.send('welcome to the backend!')
+})
+
+app.get('/frontend-view', (req, res) => {
+	console.log(__dirname)
+	res.sendFile(path.join(__dirname + '/build/index.html'));
 })
 
 app.get('*', (req, res) => {
-	res.send('Whoops..... looks like this is a 404 page')
+	res.send('Whoops! looks like you found a blank page...')
 })
 
 
