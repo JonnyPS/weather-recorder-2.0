@@ -66,7 +66,7 @@ let createTables = () => {
 
 let makeRequestsToWeatherApiBristol = () => {
 	console.log('makeRequestsToWeatherApiBristol');
-	const task = new CronJob('* * * * *', () => {
+	const task = new CronJob('1 0 * * *', () => {
 	axios.get("https://api.openweathermap.org/data/2.5/onecall?lat=51.46&lon=-2.6&exclude=minutely,hourly,current&units=metric&appid=fe46f64d11af51352d4aea674767e906", {
 		headers: {
 			"Content-Type": "application/json"
@@ -85,7 +85,7 @@ let makeRequestsToWeatherApiBristol = () => {
 
 let makeRequestsToWeatherApiLondon = () => {
 	console.log('makeRequestsToWeatherApiLondon');
-	const task = new CronJob('* * * * *', () => {
+	const task = new CronJob('1 0 * * *', () => {
 	axios.get("https://api.openweathermap.org/data/2.5/onecall?lat=51.51&lon=-0.13&exclude=minutely,hourly,current&units=metric&appid=fe46f64d11af51352d4aea674767e906", {
 		headers: {
 			"Content-Type": "application/json"
