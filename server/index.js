@@ -200,31 +200,9 @@ createTables();
 makeRequestsToWeatherApiBristol();
 makeRequestsToWeatherApiLondon();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // set up routes on the backend....
 
-app.get('/weather', (req, res) => {
+app.get('/weather-bristol', (req, res) => {
 	const query = `SELECT * from Bristol`;
 	db.all(query, (err, rows) => {
 		if (err) {
@@ -241,10 +219,22 @@ app.get('/weather', (req, res) => {
 	});
 });
 
-// app.get('/', (req, res) => {
-// 		// res.json({res: "An alligator approaches.... slowly"})
-// 		res.send('An alligator approaches.... slowly')
-// });
+app.get('/weather-london', (req, res) => {
+	const query = `SELECT * from London`;
+	db.all(query, (err, rows) => {
+		if (err) {
+			console.error(err);
+			return;
+		}
+		console.log('selecting from London.....')
+		let allRows = rows.map(function (row) {  
+			return row;
+		}) 
+		console.log('allRows = ', allRows)
+		res.json({rows: allRows})
+    // res.json({res: 'get the weather'});
+	});
+});
 
 app.get('/backend-view', (req, res) => {
 	res.send('welcome to the backend!')
@@ -260,4 +250,4 @@ app.get('*', (req, res) => {
 })
 
 
-app.listen(port, () => console.log(`Gator app listening on port ${port}!`));
+app.listen(port, () => console.log(`App listening on port ${port}!`));
