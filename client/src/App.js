@@ -1,5 +1,15 @@
 import React from "react";
 import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+// import components
+import { HomePageMessage } from './Components/HomePage';
+import { LineGraphContainer } from './Components/LineGraphContainer';
 
 class App extends React.Component {
 	constructor(props) {
@@ -12,27 +22,37 @@ class App extends React.Component {
 
 	componentDidMount() {
 		console.log('componentDidMount')
-		fetch("http://localhost:5000")
-			.then(response => response.json())
-			.then(data => {
-				this.setState({
-					data: data.res
-				})
-				console.log('this.state', this.state)
-			})
+		// fetch("http://localhost:5000")
+		// 	.then(response => response.json())
+		// 	.then(data => {
+		// 		this.setState({
+		// 			data: data.res
+		// 		})
+		// 		console.log('this.state', this.state)
+		// 	})
 	}
 	render(){ 
 		return (
-			<div className="App">
-				<header className="App-header">
-					<p>
-						I am here! and so is someone else........... or are they?
-					</p>
-					<p>
-						{this.state.data}
-					</p>
-				</header>
-			</div>
+			<Router>
+				<>
+					<header>
+						<ul>
+							<li>
+								<Link to="/">Home</Link>
+							</li>
+							<li>
+								<Link to="/line-graph">Line Graph</Link>
+							</li>
+						</ul>
+					</header>
+					<div>
+						<Switch>
+						<Route path="/" exact component={HomePageMessage} />
+						<Route path="/line-graph" component={LineGraphContainer} />
+						</Switch>
+					</div>
+				</>
+			</Router>
 		)
 	}
 }
