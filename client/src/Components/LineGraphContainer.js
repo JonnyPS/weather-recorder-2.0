@@ -8,7 +8,18 @@ export class LineGraphContainer extends React.Component {
 		super(props);
 		this.state = {
 			data: null,
-			temp: []
+			labels: [],
+			datasets: [
+				{
+					label: 'Daily Temperature',
+					fill: false,
+					lineTension: 0.5,
+					backgroundColor: 'rgba(75,192,192,1)',
+					borderColor: 'rgba(0,0,0,1)',
+					borderWidth: 2,
+					data: []
+				}
+			]
 		}
 
 	}
@@ -22,10 +33,21 @@ export class LineGraphContainer extends React.Component {
 				let dayTemps = data.rows.map((item, index) => {
 					return item.DayTemp;
 				})
+				let dates = data.rows.map((item, index) => {
+					let ts = new Date(item.Timestamp*1000)
+					let dateObject = ts.toLocaleString();
+					let formattedDate = dateObject.substring(0, dateObject.length-13)
+					console.log(formattedDate)
+					let day = dateObject.toLocaleString("en-US", {day: "numeric"}) // 9
+					let month = dateObject.toLocaleString("en-US", {month: "numeric"}) // 2019 
+					let year = dateObject.toLocaleString("en-US", {year: "numeric"}) // 2019 
+					return  formattedDate.toLocaleString();
+				})
 
 				this.setState({
 					data: data.rows,
-					temp: dayTemps
+					datasets: [{data: dayTemps}],
+					labels: dates
 				})
 				console.log('this.state', this.state)				
 			})
@@ -35,7 +57,7 @@ export class LineGraphContainer extends React.Component {
 			this.state.data === null ?
 			<p>Fetching data</p>
 			:
-			<LineGraph data={this.state.temp} width={400} height={300} />	
+			<LineGraph data={this.state} width={400} height={300} />	
 		)
 	}
 }

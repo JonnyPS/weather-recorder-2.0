@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "lerna": "^3.22.1"
+    "chart.js": "^2.9.4",
+    "lerna": "^3.22.1",
+    "react-chartjs-2": "^2.11.1"
   }
 }
