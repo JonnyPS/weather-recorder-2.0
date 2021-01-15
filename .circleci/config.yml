@@ -10,35 +10,44 @@ jobs:
       - image: circleci/node:14.15.0-browsers
     steps:
       - checkout
+      - run: 
+        name: "Install AWS CLI"
+        command: curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+                 unzip awscli-bundle.zip
+                 ./awscli-bundle/install -b ~/bin/aws
+      - run: 
+        name: "Get Public IP Address"
+        command: PUBLIC_IP=$(curl ipinfo.io/ip)
       - run:
           name: Deploy
           command: |
+            echo "has run this command...."
             # 1- Install AWS CLI
-            curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-            unzip awscli-bundle.zip
-            ./awscli-bundle/install -b ~/bin/aws
+            # curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+            # unzip awscli-bundle.zip
+            # ./awscli-bundle/install -b ~/bin/aws
             # 2- Get the public IP of the current CircleCI runner
-            PUBLIC_IP=$(curl ipinfo.io/ip)
+            # PUBLIC_IP=$(curl ipinfo.io/ip)
             # 3- Get AWS Region# TODO Don't forget to replcae by your own Region
-            AWS_REGION=us-east-2
+            # AWS_REGION=us-east-2
             # 4- Get SG ID# TODO Don't forget to replace by your own SG ID
-            SGID=${SG_ID}
+            # SGID=${SG_ID}
             # 5- Add an ingress rule to the security group
-            ~/bin/aws ec2 authorize-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
-              --protocol tcp --port 22 --cidr $PUBLIC_IP/24
+            # ~/bin/aws ec2 authorize-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
+              # --protocol tcp --port 22 --cidr $PUBLIC_IP/24
             # 6- Give the ingress rule some time to propogate
-            sleep 5
+            # sleep 5
             # 7- SSH to the server to deploy
             # TODO Change to your username
-            EC2_USERNAME=ec2-user
+            # EC2_USERNAME=ec2-user
             # TODO Change to your server's URL or public IP
-            EC2_PUBLIC_DNS=ec2-3-140-190-252.us-east-2.compute.amazonaws.com
-            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS \
+            # EC2_PUBLIC_DNS=ec2-3-140-190-252.us-east-2.compute.amazonaws.com
+            # ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS \
             # other commands
             # TODO Perform steps to deploy
-            mkdir test-dir
+            # mkdir test-dir
             # .
             # .
             # 8- Remove the ingress rule
-            ~/bin/aws ec2 revoke-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
-              --protocol tcp --port 22 --cidr $PUBLIC_IP/24
+            # ~/bin/aws ec2 revoke-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
+              # --protocol tcp --port 22 --cidr $PUBLIC_IP/24
