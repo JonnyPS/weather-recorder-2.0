@@ -20,6 +20,34 @@ jobs:
           name: "Get Public IP Address"
           command: PUBLIC_IP=$(curl ipinfo.io/ip)
       - run:
+          name: "Get AWS Region"
+          command: AWS_REGION=us-east-2
+      - run:
+          name: "Get SG ID"
+          command: SGID=${SG_ID}
+      - run:
+          name: "Add Ingress Rule"
+          command: |
+            ~/bin/aws ec2 authorize-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
+            --protocol tcp --port 22 --cidr $PUBLIC_IP/24
+      - run:
+          name: "Let Ingress Rule have some time..."
+          command: sleep 5
+      - run:
+          name: "SSH into server"
+          command: |
+            EC2_USERNAME=ec2-user
+            EC2_PUBLIC_DNS=ec2-3-140-190-252.us-east-2.compute.amazonaws.com
+            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS \
+      - run:
+          name: "Do some tasks on server"
+          command: mkdir test-dir-on-server
+      - run:
+          name: "Remove Ingress rule"
+          command: |
+            ~/bin/aws ec2 revoke-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
+            --protocol tcp --port 22 --cidr $PUBLIC_IP/24
+      - run:
           name: Deploy
           command: |
             echo "has run this command...."
