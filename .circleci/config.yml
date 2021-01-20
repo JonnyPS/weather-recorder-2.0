@@ -16,4 +16,4 @@ jobs:
       - run: echo $CIRCLE_TAG
       - run:
           name: Deploy to EC2
-          command: ssh -o StrictHostKeyChecking=no -t $SSH_USER@$SSH_HOST "mkdir test-dir-only && exit"
+          command: ssh -o StrictHostKeyChecking=no -t $SSH_USER@$SSH_HOST "bash ./deploy.sh && exit"
