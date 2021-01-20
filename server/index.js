@@ -250,7 +250,7 @@ app.get('/backend-view', (req, res) => {
 // 	res.sendFile(path.join(__dirname + '/build/index.html'));
 // })
 
-
+// handle all other routes by serving frontend
 app.get('*', function (req, res) {
    res.sendFile(path.join(STATIC_PATH, 'index.html'));
  });
