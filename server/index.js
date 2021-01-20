@@ -15,6 +15,8 @@ app.use(bodyParser.json());
 // app.use(express.static(path.join(__dirname, '/build')));
 
 const STATIC_PATH = path.resolve('../client/build');
+app.use(express.static(STATIC_PATH));
+
 console.log('STATIC_PATH', STATIC_PATH)
 
 let createTables = () => {
@@ -243,13 +245,13 @@ app.get('/backend-view', (req, res) => {
 	res.send('welcome to the backend!')
 })
 
-app.get('/frontend-view', (req, res) => {
-	console.log(__dirname)
-	res.sendFile(path.join(__dirname + '/build/index.html'));
-})
+// app.get('/frontend-view', (req, res) => {
+// 	console.log(__dirname)
+// 	res.sendFile(path.join(__dirname + '/build/index.html'));
+// })
 
-app.use(express.static(STATIC_PATH));
-app.get('/*', function (req, res) {
+
+app.get('*', function (req, res) {
    res.sendFile(path.join(STATIC_PATH, 'index.html'));
  });
 
