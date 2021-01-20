@@ -252,9 +252,14 @@ app.get('/backend-view', (req, res) => {
 
 // handle all other routes by serving frontend
 // dummy line
+app.get('/', function (req, res) {
+	res.sendFile(path.join(STATIC_PATH, 'index.html'));
+});
+
+// for 404's
 app.get('*', function (req, res) {
-   res.sendFile(path.join(STATIC_PATH, 'index.html'));
- });
+	res.send('Whoops! Looks like the page you were looking for does not exist!!!');
+});
 
 // app.get('*', (req, res) => {
 // 	res.send('Whoops! looks like you found a blank page...')
