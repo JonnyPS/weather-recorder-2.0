@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 // app.use(express.static(path.join(__dirname, '/build')));
 
 const STATIC_PATH = path.resolve('../client/build');
+console.log('STATIC_PATH', STATIC_PATH)
 
 let createTables = () => {
 	db.serialize(function() {
