@@ -10,4 +10,10 @@ jobs:
       - image: circleci/node:14.15.0-browsers
     steps:
       - checkout
-      - run: echo "hello world"
+      - add_ssh_keys:
+          fingerprints:
+            - "d0:1b:c4:3c:cf:48:97:73:93:59:06:e6:e3:ff:f6:ac"
+      - run: echo $CIRCLE_TAG
+      - run:
+          name: Deploy to EC2
+          command: ssh -o StrictHostKeyChecking=no -t $SSH_USER@$SSH_HOST "bash ./deploy.sh && exit"
