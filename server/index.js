@@ -251,6 +251,7 @@ app.get('/backend-view', (req, res) => {
 // })
 
 // handle all other routes by serving frontend
+// dummy line
 app.get('*', function (req, res) {
    res.sendFile(path.join(STATIC_PATH, 'index.html'));
  });
