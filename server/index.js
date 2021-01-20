@@ -12,7 +12,12 @@ var db = new sqlite3.Database('abcd');
 
 app.use(cors())
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '/build')));
+// app.use(express.static(path.join(__dirname, '/build')));
+
+const STATIC_PATH = path.resolve('../client/build');
+app.use(express.static(STATIC_PATH));
+
+console.log('STATIC_PATH', STATIC_PATH)
 
 let createTables = () => {
 	db.serialize(function() {
@@ -240,14 +245,20 @@ app.get('/backend-view', (req, res) => {
 	res.send('welcome to the backend!')
 })
 
-app.get('/frontend-view', (req, res) => {
-	console.log(__dirname)
-	res.sendFile(path.join(__dirname + '/build/index.html'));
-})
+// app.get('/frontend-view', (req, res) => {
+// 	console.log(__dirname)
+// 	res.sendFile(path.join(__dirname + '/build/index.html'));
+// })
 
-app.get('*', (req, res) => {
-	res.send('Whoops! looks like you found a blank page...')
-})
+// handle all other routes by serving frontend
+// dummy line
+app.get('*', function (req, res) {
+   res.sendFile(path.join(STATIC_PATH, 'index.html'));
+ });
+
+// app.get('*', (req, res) => {
+// 	res.send('Whoops! looks like you found a blank page...')
+// })
 
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));
