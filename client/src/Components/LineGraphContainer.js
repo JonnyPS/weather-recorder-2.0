@@ -64,10 +64,6 @@ export class LineGraphContainer extends React.Component {
 					return  formattedDate.toLocaleString();
 				})
 
-				// this.setState({
-				// 	datasets: [{data: dayTemps, label: 'London'}]
-				// })
-
 				this.setState(prevState => ({
 					datasets: [...prevState.datasets, {
 						data: dayTemps,
@@ -77,8 +73,6 @@ export class LineGraphContainer extends React.Component {
 						backgroundColor: 'transparent'
 					}]
 				}))
-
-
 				console.log('this.state', this.state)				
 			})
 	}
