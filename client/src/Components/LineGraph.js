@@ -15,39 +15,46 @@ export function LineGraph(props) {
 	}
 
 	return (
-		// <p>hello</p>
+		<div style={{width: 50 + '%', height: 'auto', left: 25 + '%', position: 'relative'}}>
 		<Line
-          data={props.data}
-          options={{
-            title:{
-              display:true,
-              text:'Daily Temperature',
-              fontSize:20
-            },
-            legend:{
-              display:true,
-              position:'right'
+			data={props.data}
+			options={{
+				dataset: {
+					bezierCurve: false,
+					lineTension: 0,
+					tension: 0	
+				},
+				title:{
+					display:true,
+					text:'Daily Temperature',
+					fontSize:20
+				},
+				legend:{
+					display:true,
+					position:'right',
+					text: 'Bristol'
+				},
+				scales: {
+					yAxes: [{
+						ticks: {
+							max: 30,
+							min: 0,
+							stepSize: 2,
 						},
-						scales: {
-              yAxes: [{
-                ticks: {
-                  max: 30,
-                  min: 0,
-                  stepSize: 2,
-                },
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Celius'
-                }
-              }],
-              xAxes: [{
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Date'
-                }
-              }]
-            }
-          }}
-        />
+						scaleLabel: {
+							display: true,
+							labelString: 'Celius'
+						}
+					}],
+					xAxes: [{
+						scaleLabel: {
+							display: true,
+							labelString: 'Date'
+						}
+					}]
+				}
+			}}
+		/>
+		</div>
 	)
 }
