@@ -35,9 +35,50 @@ export class LineGraphContainer extends React.Component {
 
 				this.setState({
 					data: data.rows,
-					datasets: [{data: dayTemps}],
+					datasets: [{
+						data: dayTemps, 
+						label: 'Bristol',
+						borderColor: 'mediumseagreen',
+						lineTension: 0,
+						backgroundColor: 'transparent'
+					}],
 					labels: dates
 				})
+				console.log('this.state', this.state)				
+			})
+			fetch("http://ec2-3-140-190-252.us-east-2.compute.amazonaws.com/weather-london")
+			.then(response => response.json())
+			.then(data => {
+
+				let dayTemps = data.rows.map((item, index) => {
+					return item.DayTemp;
+				})
+				let dates = data.rows.map((item, index) => {
+					let ts = new Date(item.Timestamp*1000)
+					let dateObject = ts.toLocaleString();
+					let formattedDate = dateObject.substring(0, dateObject.length-13)
+					console.log(formattedDate)
+					let day = dateObject.toLocaleString("en-US", {day: "numeric"}) // 9
+					let month = dateObject.toLocaleString("en-US", {month: "numeric"}) // 2019 
+					let year = dateObject.toLocaleString("en-US", {year: "numeric"}) // 2019 
+					return  formattedDate.toLocaleString();
+				})
+
+				// this.setState({
+				// 	datasets: [{data: dayTemps, label: 'London'}]
+				// })
+
+				this.setState(prevState => ({
+					datasets: [...prevState.datasets, {
+						data: dayTemps,
+						label: 'London',
+						borderColor: 'coral',
+						lineTension: 0,
+						backgroundColor: 'transparent'
+					}]
+				}))
+
+
 				console.log('this.state', this.state)				
 			})
 	}
