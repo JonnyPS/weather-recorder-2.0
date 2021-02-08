@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import {Line} from 'react-chartjs-2';
+import styled from 'styled-components'
 
 export function LineGraph(props) {
 
@@ -11,11 +12,23 @@ export function LineGraph(props) {
 	}, []);
 
 	let drawChart = () => {
-
 	}
 
+	const GraphContainer = styled.div`
+		position: relative;
+		left: 5%;
+		width: 90%;
+		height: auto;
+		@media only screen and (min-width: 1200px) {
+			position: relative;
+			left: 25%;
+			width: 50%;
+			height: auto;
+		}
+	`;
+
 	return (
-		<div style={{width: 50 + '%', height: 'auto', left: 25 + '%', position: 'relative'}}>
+		<GraphContainer>
 		<Line
 			data={props.data}
 			options={{
@@ -31,14 +44,14 @@ export function LineGraph(props) {
 				},
 				legend:{
 					display:true,
-					position:'right',
+					position:'bottom',
 					text: 'Bristol'
 				},
 				scales: {
 					yAxes: [{
 						ticks: {
 							max: 30,
-							min: 0,
+							min: -4,
 							stepSize: 2,
 						},
 						scaleLabel: {
@@ -55,6 +68,6 @@ export function LineGraph(props) {
 				}
 			}}
 		/>
-		</div>
+		</GraphContainer>
 	)
 }

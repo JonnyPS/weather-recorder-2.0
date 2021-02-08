@@ -81,7 +81,7 @@ export class LineGraphContainer extends React.Component {
 			this.state.data === null ?
 			<p>Fetching data</p>
 			:
-			<LineGraph data={this.state} width={400} height={300} />	
+			<LineGraph data={this.state} width={400} height={500} />	
 		)
 	}
 }

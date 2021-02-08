@@ -14,5 +14,8 @@
     "chart.js": "^2.9.4",
     "lerna": "^3.22.1",
     "react-chartjs-2": "^2.11.1"
+  },
+  "devDependencies": {
+    "styled-components": "^5.2.1"
   }
 }
